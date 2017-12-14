@@ -2,7 +2,9 @@ package abdulrahmanjavanrd.com.musicbook_demo2.intents;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -35,12 +37,16 @@ public class RawSongsActivity extends AppCompatActivity {
     };
     SeekBar seekBar;
     Button playBtn, rewindBtn, forwardBtn;
+    Toolbar toolbar ;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.raw_song_activity_layout);
+        /** put data inside {@link #listMusic} */
         setListMusic();
+        /** init views  */
+        toolbar = findViewById(R.id.seActivity_toolbar);
         txvCurrentSong = findViewById(R.id.txvCurrentSong);
         txvTime = findViewById(R.id.txvTime);
         gridView = findViewById(R.id.grid_view);
@@ -48,7 +54,16 @@ public class RawSongsActivity extends AppCompatActivity {
         playBtn = findViewById(R.id.btnPlay);
         forwardBtn = findViewById(R.id.btnForward);
         seekBar = findViewById(R.id.skBar);
-        final songTrack myTrack = new songTrack();
+        /**  toolbar */
+         setSupportActionBar(toolbar);
+         toolbar.setSubtitle("some music ");
+         /** Back up button . */
+         ActionBar actionBar = getSupportActionBar();
+         actionBar.setDisplayHomeAsUpEnabled(true);
+        /**
+         * Create own thread .
+         */
+         SongTrack myTrack = new SongTrack();
         myTrack.start();
         gridView.setAdapter(new RawAdapter(this, listMusic));
         /**
@@ -190,7 +205,7 @@ public class RawSongsActivity extends AppCompatActivity {
      * This class extends Thread Because i want run long process and avoid the ANR .
      * In This class I call ConvertTime class to show the current song time .
      */
-    class songTrack extends Thread {
+    class SongTrack extends Thread {
         @Override
         public void run() {
             while (true) {
