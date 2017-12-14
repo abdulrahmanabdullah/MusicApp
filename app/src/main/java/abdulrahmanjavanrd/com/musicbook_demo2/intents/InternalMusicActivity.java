@@ -39,7 +39,8 @@ import abdulrahmanjavanrd.com.musicbook_demo2.utilities.ConvertTime;
 public class InternalMusicActivity extends AppCompatActivity {
 
     private final int REQUEST_PERMISSION = 123 ;
-    private int  indexSong ;
+    private int  indexSong = 0;
+    private int lengthCurrentSong ;
     Toolbar toolbar ;
     MediaPlayer mPlayer;
     Button playBtn , forwardBtn ,rewindBtn ;
@@ -51,7 +52,7 @@ public class InternalMusicActivity extends AppCompatActivity {
     public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.intrnal_song_activity);
-        /**  init views */
+        /**  initialize  view */
         toolbar = findViewById(R.id.thirdActivity_toolbar);
         listView =findViewById(R.id.list_view);
         currentSongName = findViewById(R.id.txvCurrentSong);
@@ -65,18 +66,38 @@ public class InternalMusicActivity extends AppCompatActivity {
         toolbar.setSubtitle("music on storage device");
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        /** Object of inner class {@link MySongTrack()} */
         MySongTrack myTrack = new MySongTrack();
         myTrack.start();
         /** check permission And Call extract method when user accept permission */
        checkPermission();
 
-        /**
-         * Play Button
+         /**
+         * Play Song BY default run first Music -> zero position in the list
+         * Then when click again :
+         *  1- pause song .
+         *  2- save the current position of music and put the value inside{@link #lengthCurrentSong}
+         *                  to resume the current music.
+         *  3- change the background button to play button .
+         *  4- if click again , resume the current music  position.
          */
         playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(InternalMusicActivity.this,"clicked ",Toast.LENGTH_SHORT).show();
+                if (mPlayer ==null){
+                    playSong(getMusicList(indexSong).getSongPath(),getMusicList(indexSong).getSongName());
+                }
+                else  if (mPlayer.isPlaying() && mPlayer !=null){
+                   lengthCurrentSong = mPlayer.getCurrentPosition();
+                   mPlayer.pause();
+                   playBtn.setBackgroundResource(R.drawable.ic_play_white);
+                }
+                else if ( !(mPlayer.isPlaying())){
+                    mPlayer.seekTo(lengthCurrentSong);
+                    mPlayer.start();
+                    seekBar.setMax(mPlayer.getDuration());
+                    playBtn.setBackgroundResource(R.drawable.ic_pause_white);
+                }
             }
         });
         /**
@@ -85,17 +106,30 @@ public class InternalMusicActivity extends AppCompatActivity {
         rewindBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(InternalMusicActivity.this,"clicked ",Toast.LENGTH_SHORT).show();
+                if (indexSong > 0){
+                    indexSong = indexSong -1 ;
+                    playSong(getMusicList(indexSong).getSongPath(),getMusicList(indexSong).getSongName());
+                }
+                else{
+                    playSong(getMusicList(indexSong).getSongPath(),getMusicList(indexSong).getSongName());
+                    indexSong = 0 ;
+                }
             }
         });
-
         /**
          * Forward Button
          */
         forwardBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(InternalMusicActivity.this,"clicked ",Toast.LENGTH_SHORT).show();
+                if (indexSong < (musicList.size() -1) ){
+                    indexSong = indexSong +1 ;
+                    playSong(getMusicList(indexSong).getSongPath(),getMusicList(indexSong).getSongName());
+                }
+                else{
+                    playSong(getMusicList(indexSong).getSongPath(),getMusicList(indexSong).getSongName());
+                    indexSong = 0 ;
+                }
             }
         });
     }
@@ -118,8 +152,8 @@ public class InternalMusicActivity extends AppCompatActivity {
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
                     extractMedia();
                 }else {
-                    //TODO: Here if user not accept to access internal storage .
                     Toast.makeText(InternalMusicActivity.this,"Sorry you should  Accept our term.",Toast.LENGTH_SHORT).show();
+                    this.finish();
                 }
                 break;
             default:
@@ -127,6 +161,11 @@ public class InternalMusicActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * This method work for two process  :
+     *      First: extract data from internal storage, And save this data inside {@link #musicList}
+     *      Second : Create new obj of {@link InternalMusicAdapter} to set {@link #listView} Adapter .
+     */
     private void extractMedia(){
         ContentResolver resolver = getContentResolver();
         Uri uri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
@@ -149,37 +188,40 @@ public class InternalMusicActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                releaseSong();
-                mPlayer = new MediaPlayer();
-                try {
-                    mPlayer.setDataSource(getMusicList(position).getSongPath());
-                    mPlayer.prepare();
-                    mPlayer.start();
-                    seekBar.setMax(mPlayer.getDuration());
-                    currentSongName.setText(getMusicList(position).getSongName());
-                    playBtn.setBackgroundResource(R.drawable.ic_pause_white);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                /** update index song when clicked list*/
+                indexSong = position ;
+                playSong(getMusicList(position).getSongPath(),getMusicList(position).getSongName());
             }
         });
     }
 
+    /**
+     * @param p current obj position
+     * @return obj of InternalMusic
+     */
     private InternalMusic getMusicList(int p){
        return musicList.get(p);
    }
-    private void playSong(int position ,String songName){
+
+    /**
+     * @param songPath to set source Media path .
+     * @param songName to set song name in {@link #currentSongName}
+     */
+    private void playSong(String songPath ,String songName){
         releaseSong();
         mPlayer = new MediaPlayer();
         try{
-           mPlayer.setDataSource(musicList.get(position).getSongPath());
+           mPlayer.setDataSource(songPath);
            mPlayer.prepare();
            mPlayer.start();
+           seekBar.setMax(mPlayer.getDuration());
+           playBtn.setBackgroundResource(R.drawable.ic_pause_white);
            currentSongName.setText(songName);
         }catch (IOException e){
             e.printStackTrace();
         }
     }
+    /** when change song, finish the previous song , And when leave app OR the song is finished */
     private void releaseSong(){
         if (mPlayer !=null){
             mPlayer.release();
@@ -199,9 +241,10 @@ public class InternalMusicActivity extends AppCompatActivity {
         releaseSong();
     }
 
-    class MySongTrack extends Thread{
-
-
+    /**
+     * Inner Class for update {@link #seekBar}.
+     */
+   private class MySongTrack extends Thread{
         public void run(){
            while (true){
                try{

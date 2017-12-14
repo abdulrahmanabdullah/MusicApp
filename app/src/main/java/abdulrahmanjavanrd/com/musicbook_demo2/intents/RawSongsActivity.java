@@ -81,8 +81,8 @@ public class RawSongsActivity extends AppCompatActivity {
         });
 
         /**
-         * Play button
-         * OnClick play button :
+         * Play button BY default run first Music -> zero position in the list
+         * Then when click again :
          *  1- pause song .
          *  2- save the current position of music and put the value inside{@link #lengthCurrentSong}
          *                  to resume the current music.
@@ -115,8 +115,8 @@ public class RawSongsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (currentSongIndex > 0) {
-                    playSong(listMusic.get(currentSongIndex - 1).getId(), listMusic.get(currentSongIndex - 1).getSongName());
                     currentSongIndex = currentSongIndex - 1;
+                    playSong(listMusic.get(currentSongIndex - 1).getId(), listMusic.get(currentSongIndex - 1).getSongName());
                 } else {
                     playSong(listMusic.get(currentSongIndex).getId(), listMusic.get(currentSongIndex).getSongName());
                     currentSongIndex = 0;
@@ -130,8 +130,8 @@ public class RawSongsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (currentSongIndex < (listMusic.size() - 1)) {
-                    playSong(listMusic.get(currentSongIndex + 1).getId(), listMusic.get(currentSongIndex + 1).getSongName());
                     currentSongIndex = currentSongIndex + 1;
+                    playSong(listMusic.get(currentSongIndex + 1).getId(), listMusic.get(currentSongIndex + 1).getSongName());
                 } else {
                     playSong(listMusic.get(0).getId(), listMusic.get(0).getSongName());
                     currentSongIndex = 0;
