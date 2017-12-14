@@ -2,27 +2,22 @@ package abdulrahmanjavanrd.com.musicbook_demo2.intents;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import abdulrahmanjavanrd.com.musicbook_demo2.R;
 import abdulrahmanjavanrd.com.musicbook_demo2.apaters.RawAdapter;
 import abdulrahmanjavanrd.com.musicbook_demo2.model.RawMusic;
 import abdulrahmanjavanrd.com.musicbook_demo2.utilities.ConvertTime;
 
 /**
- * @author  abdulrahman abdullah .
+ * @author abdulrahman abdullah .
  */
 
 public class RawSongsActivity extends AppCompatActivity {
@@ -30,15 +25,15 @@ public class RawSongsActivity extends AppCompatActivity {
     GridView gridView;
     MediaPlayer mPlayer;
     int lengthCurrentSong;
-    int currentSongIndex = 0 ;
-    TextView txvCurrentSong,txvTime;
+    int currentSongIndex = 0;
+    TextView txvCurrentSong, txvTime;
     MediaPlayer.OnCompletionListener completionListener = new MediaPlayer.OnCompletionListener() {
         @Override
         public void onCompletion(MediaPlayer mp) {
             releaseSong();
         }
     };
-    SeekBar seekBar ;
+    SeekBar seekBar;
     Button playBtn, rewindBtn, forwardBtn;
 
     @Override
@@ -57,6 +52,7 @@ public class RawSongsActivity extends AppCompatActivity {
         myTrack.start();
         gridView.setAdapter(new RawAdapter(this, listMusic));
         /**
+         * GridView Listener .
          * When user click any song inside this list, it will  play automatically, Then Change Background button to
          *  pause icon.
          */
@@ -66,11 +62,12 @@ public class RawSongsActivity extends AppCompatActivity {
                 /** when click call {@link #playSong()}
                  *  get audio and the name of this audio
                  * */
-                playSong(listMusic.get(position).getId(),listMusic.get(position).getSongName());
+                playSong(listMusic.get(position).getId(), listMusic.get(position).getSongName());
             }
         });
 
         /**
+         * Play button
          * OnClick play button :
          *  1- pause song .
          *  2- save the current position of music and put the value inside{@link #lengthCurrentSong}
@@ -81,20 +78,20 @@ public class RawSongsActivity extends AppCompatActivity {
         playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if ( mPlayer.isPlaying()) {
+                if (mPlayer == null) {
+                    playSong(listMusic.get(currentSongIndex).getId(), listMusic.get(currentSongIndex).getSongName());
+                } else if (mPlayer.isPlaying() && mPlayer != null) {
                     mPlayer.pause();
                     lengthCurrentSong = mPlayer.getCurrentPosition();
                     playBtn.setBackgroundResource(R.drawable.ic_play_white);
                 }
-                //TODO: solve this debug , when song end .
+//                //TODO: solve this debug , when song end .
                 else if (!(mPlayer.isPlaying())) {
-                        mPlayer.seekTo(lengthCurrentSong);
-                        mPlayer.start();
-                        seekBar.setMax(mPlayer.getDuration());
-                        playBtn.setBackgroundResource(R.drawable.ic_pause_white);
+                    mPlayer.seekTo(lengthCurrentSong);
+                    mPlayer.start();
+                    seekBar.setMax(mPlayer.getDuration());
+                    playBtn.setBackgroundResource(R.drawable.ic_pause_white);
                 }
-
-
             }
         });
 /**
@@ -103,14 +100,13 @@ public class RawSongsActivity extends AppCompatActivity {
         rewindBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               if (currentSongIndex > 0){
-                   playSong(listMusic.get(currentSongIndex -1).getId(),listMusic.get(currentSongIndex-1).getSongName());
-                   currentSongIndex = currentSongIndex -1 ;
-               }
-               else {
-                   playSong(listMusic.get(currentSongIndex).getId(),listMusic.get(currentSongIndex).getSongName());
-                   currentSongIndex = 0;
-               }
+                if (currentSongIndex > 0) {
+                    playSong(listMusic.get(currentSongIndex - 1).getId(), listMusic.get(currentSongIndex - 1).getSongName());
+                    currentSongIndex = currentSongIndex - 1;
+                } else {
+                    playSong(listMusic.get(currentSongIndex).getId(), listMusic.get(currentSongIndex).getSongName());
+                    currentSongIndex = 0;
+                }
             }
         });
         /**
@@ -119,12 +115,12 @@ public class RawSongsActivity extends AppCompatActivity {
         forwardBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (currentSongIndex < (listMusic.size() -1)){
-                    playSong(listMusic.get(currentSongIndex+1).getId(),listMusic.get(currentSongIndex+1).getSongName());
-                    currentSongIndex = currentSongIndex +1 ;
-                }else {
-                    playSong(listMusic.get(0).getId(),listMusic.get(0).getSongName());
-                    currentSongIndex = 0 ;
+                if (currentSongIndex < (listMusic.size() - 1)) {
+                    playSong(listMusic.get(currentSongIndex + 1).getId(), listMusic.get(currentSongIndex + 1).getSongName());
+                    currentSongIndex = currentSongIndex + 1;
+                } else {
+                    playSong(listMusic.get(0).getId(), listMusic.get(0).getSongName());
+                    currentSongIndex = 0;
                 }
             }
         });
@@ -134,27 +130,28 @@ public class RawSongsActivity extends AppCompatActivity {
      * @param position of song id .
      * @param songName to set songName when play song OR move to next song OR back to the Previous song.
      */
-   private void playSong(int position,String songName){
+    private void playSong(int position, String songName) {
         releaseSong();
         txvCurrentSong.setText(songName);
-        mPlayer = MediaPlayer.create(RawSongsActivity.this,position);
+        mPlayer = MediaPlayer.create(RawSongsActivity.this, position);
         mPlayer.start();
         seekBar.setMax(mPlayer.getDuration());
         playBtn.setBackgroundResource(R.drawable.ic_pause_white);
         mPlayer.setOnCompletionListener(completionListener);
     }
+
     /**
-     *  add songs method from  RawMusic.class then save it inside {@link #listMusic}
-     *  This list i passed in RawAdapter.class .
+     * add songs method from  RawMusic.class then save it inside {@link #listMusic}
+     * This list i passed in RawAdapter.class .
      */
-    private void setListMusic(){
+    private void setListMusic() {
         listMusic = new ArrayList<>();
-        listMusic.add(new RawMusic(R.raw.ibrahim_turkish,"ibrahim_turkish","turkish"));
-        listMusic.add(new RawMusic(R.raw.la_la_land,"la__la_Land","Movie Music"));
-        listMusic.add(new RawMusic(R.raw.motivational,"Best Motivation","Motivations"));
-        listMusic.add(new RawMusic(R.raw.need_you,"Need you","Team"));
-        listMusic.add(new RawMusic(R.raw.strangers_in_the_night,"Strangers in the Night","Frank"));
-        listMusic.add(new RawMusic(R.raw.sway,"Sway","Sway"));
+        listMusic.add(new RawMusic(R.raw.ibrahim_turkish, "ibrahim_turkish", "turkish"));
+        listMusic.add(new RawMusic(R.raw.la_la_land, "la__la_Land", "Movie Music"));
+        listMusic.add(new RawMusic(R.raw.motivational, "Best Motivation", "Motivations"));
+        listMusic.add(new RawMusic(R.raw.need_you, "Need you", "Team"));
+        listMusic.add(new RawMusic(R.raw.strangers_in_the_night, "Strangers in the Night", "Frank"));
+        listMusic.add(new RawMusic(R.raw.sway, "Sway", "Sway"));
     }
 
     /**
@@ -163,10 +160,10 @@ public class RawSongsActivity extends AppCompatActivity {
      * And
      * If audio finish set the {@link #mPlayer} = null .
      */
-    public void releaseSong(){
-        if (mPlayer != null){
+    public void releaseSong() {
+        if (mPlayer != null) {
             mPlayer.release();
-            mPlayer = null ;
+            mPlayer = null;
         }
     }
 
@@ -191,20 +188,20 @@ public class RawSongsActivity extends AppCompatActivity {
     /**
      * Inner class for update seekBar and timer .
      * This class extends Thread Because i want run long process and avoid the ANR .
-     *      In This class I call ConvertTime class to show the current song time .
+     * In This class I call ConvertTime class to show the current song time .
      */
-   class songTrack extends Thread{
-       @Override
-       public void run() {
-           while (true){
-               try{
-                   Thread.sleep(1000);
-               }catch (Exception e){
+    class songTrack extends Thread {
+        @Override
+        public void run() {
+            while (true) {
+                try {
+                    Thread.sleep(1000);
+                } catch (Exception e) {
 
-               }
-               runOnUiThread(new Runnable() {
-                   @Override
-                   public void run() {
+                }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
                         if (mPlayer != null) {
                             seekBar.setProgress(mPlayer.getCurrentPosition());
                             long millisecond = mPlayer.getCurrentPosition();
@@ -213,13 +210,13 @@ public class RawSongsActivity extends AppCompatActivity {
                              */
                             String str = ConvertTime.millisecond(millisecond);
                             txvTime.setText(str);
-                        }else {
+                        } else {
                             txvTime.setText("00:00");
                             seekBar.setProgress(0);
                         }
-                   }
-               });
-           }
-       }
-   }
+                    }
+                });
+            }
+        }
+    }
 }
