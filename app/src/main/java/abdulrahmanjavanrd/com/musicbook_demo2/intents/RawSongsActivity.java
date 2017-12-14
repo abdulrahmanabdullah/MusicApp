@@ -56,14 +56,13 @@ public class RawSongsActivity extends AppCompatActivity {
         seekBar = findViewById(R.id.skBar);
         /**  toolbar */
          setSupportActionBar(toolbar);
-         toolbar.setSubtitle("some music ");
          /** Back up button . */
          ActionBar actionBar = getSupportActionBar();
          actionBar.setDisplayHomeAsUpEnabled(true);
         /**
          * Create own thread .
          */
-         SongTrack myTrack = new SongTrack();
+         songTrack myTrack = new songTrack();
         myTrack.start();
         gridView.setAdapter(new RawAdapter(this, listMusic));
         /**
@@ -161,12 +160,12 @@ public class RawSongsActivity extends AppCompatActivity {
      */
     private void setListMusic() {
         listMusic = new ArrayList<>();
-        listMusic.add(new RawMusic(R.raw.ibrahim_turkish, "ibrahim_turkish", "turkish"));
-        listMusic.add(new RawMusic(R.raw.la_la_land, "la__la_Land", "Movie Music"));
+        listMusic.add(new RawMusic(R.raw.ibrahim_turkish, "Ibrahim Turkish", "turkish"));
+        listMusic.add(new RawMusic(R.raw.la_la_land, "La La Land", "Movie Music"));
         listMusic.add(new RawMusic(R.raw.motivational, "Best Motivation", "Motivations"));
         listMusic.add(new RawMusic(R.raw.need_you, "Need you", "Team"));
         listMusic.add(new RawMusic(R.raw.strangers_in_the_night, "Strangers in the Night", "Frank"));
-        listMusic.add(new RawMusic(R.raw.sway, "Sway", "Sway"));
+        listMusic.add(new RawMusic(R.raw.sway, "Sway", "sway"));
     }
 
     /**
@@ -205,7 +204,7 @@ public class RawSongsActivity extends AppCompatActivity {
      * This class extends Thread Because i want run long process and avoid the ANR .
      * In This class I call ConvertTime class to show the current song time .
      */
-    class SongTrack extends Thread {
+    class songTrack extends Thread {
         @Override
         public void run() {
             while (true) {

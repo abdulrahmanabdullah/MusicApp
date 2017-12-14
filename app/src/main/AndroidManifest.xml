@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="abdulrahmanjavanrd.com.musicbook_demo2">
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,7 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".intents.RawSongsActivity" android:parentActivityName=".MainActivity">
+        <activity android:name=".intents.RawSongsActivity" android:label="Some Music" android:parentActivityName=".MainActivity">
+            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".MainActivity"/>
+        </activity>
+        <activity android:name=".intents.InternalMusicActivity" android:parentActivityName=".MainActivity">
             <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".MainActivity"/>
         </activity>
     </application>

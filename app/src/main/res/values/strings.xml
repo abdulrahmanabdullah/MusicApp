@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">MusicBook</string>
-    <string name="choiceTypeListen">Click what you want to listen</string>
+    <string name="choiceTypeListen">Click what you want to listen to</string>
     <string name="internalMusic">Internal storage Music</string>
-    <string name="globalMusic">Alraday music save it</string>
+    <string name="withApp">Music With The App </string>
+    <string name="songName">Song name</string>
+    <string name="songArtiest">Song artiest</string>
 </resources>

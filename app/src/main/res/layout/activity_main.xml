@@ -4,14 +4,29 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="#e1f5fe"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="abdulrahmanjavanrd.com.musicbook_demo2.MainActivity">
 
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBar_layout"
+        android:layout_width="match_parent"
+        android:elevation="4dp"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/mainToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </android.support.design.widget.AppBarLayout>
     <TextView
+        android:layout_marginTop="24dp"
         android:textSize="25sp"
+        android:layout_marginBottom="24dp"
+        android:textColor="@color/textColorPrimary"
+        android:textStyle="italic"
+        android:layout_below="@id/appBar_layout"
         android:layout_centerInParent="true"
-        android:layout_above="@+id/linear"
         android:layout_width="wrap_content"
         android:id="@+id/txv"
         android:layout_height="wrap_content"
@@ -46,16 +61,17 @@
 
             <TextView
                 android:gravity="center"
+                android:layout_marginTop="15dp"
                 android:textStyle="italic"
-                android:paddingStart="10dp"
+                android:textSize="20sp"
                 android:layout_alignEnd="@id/imgInternal"
                 android:layout_alignStart="@id/imgInternal"
                 android:layout_alignBottom="@id/imgInternal"
                android:layout_alignTop="@id/imgInternal"
-                android:textColor="#fff"
+                android:textColor="@color/textColorPrimary"
                 android:text="@string/internalMusic"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="0dp" />
         </RelativeLayout>
 
         <View
@@ -63,7 +79,7 @@
             android:layout_marginStart="24dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginEnd="24dp"
-            android:background="@color/colorPrimary"
+            android:background="@color/dividerColor"
             android:layout_width="1dp"
             android:layout_height="match_parent"
             />
@@ -73,6 +89,7 @@
             android:gravity="center"
             android:layout_weight="1"
             android:layout_height="wrap_content">
+
             <ImageView
                 android:id="@+id/imgRaw"
                 android:src="@drawable/ic_internal_1"
@@ -80,13 +97,17 @@
                 android:layout_height="150dp" />
 
             <TextView
+                android:textSize="20sp"
+                android:layout_marginTop="8dp"
+                android:textStyle="italic"
                 android:gravity="center"
-                android:paddingStart="8dp"
-                android:layout_alignEnd="@id/imgRaw"
-                android:layout_alignRight="@id/imgRaw"
+                android:textColor="@color/textColorPrimary"
+                android:paddingTop="8dp"
                 android:layout_alignTop="@id/imgRaw"
+                android:layout_alignEnd="@id/imgRaw"
+                android:layout_alignStart="@id/imgRaw"
                 android:layout_alignBottom="@id/imgRaw"
-               android:text="@string/globalMusic"
+               android:text="@string/withApp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </RelativeLayout>

@@ -10,42 +10,45 @@ import android.widget.TextView;
 import java.util.List;
 
 import abdulrahmanjavanrd.com.musicbook_demo2.R;
-import abdulrahmanjavanrd.com.musicbook_demo2.model.RawMusic;
+import abdulrahmanjavanrd.com.musicbook_demo2.model.InternalMusic;
 
 /**
- * Created by nfs05 on 13/12/2017.
+ * Created by nfs05 on 14/12/2017.
  */
 
-public class RawAdapter extends BaseAdapter {
-  private   Context context ;
-   private List<RawMusic> listMusic ;
+public class InternalMusicAdapter extends BaseAdapter {
 
-    public RawAdapter(Context ctx , List<RawMusic> theList){
-        this.context = ctx ;
-        this.listMusic = theList ;
+    private List<InternalMusic> musicList ;
+    private Context context ;
+
+    public InternalMusicAdapter( Context context,List<InternalMusic> musicList) {
+        this.context = context;
+        this.musicList = musicList;
     }
+
     @Override
     public int getCount() {
-        return listMusic.size();
+        return musicList.size();
     }
 
     @Override
-    public RawMusic getItem(int position) {
-        return listMusic.get(position);
+    public InternalMusic getItem(int position) {
+        return musicList.get(position);
     }
 
     @Override
     public long getItemId(int position) {
-        return 0;
+        return position;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = LayoutInflater.from(context).inflate(R.layout.list_music,parent,false);
+        System.out.println("Hi from get View . ");
         TextView songName = v.findViewById(R.id.txv_song_name);
-        TextView songArtist = v.findViewById(R.id.txv_song_artist);
+        TextView songArtiest = v.findViewById(R.id.txv_song_artist);
         songName.setText(getItem(position).getSongName());
-        songArtist.setText(getItem(position).getArtistName());
+        songArtiest.setText(getItem(position).getSongArtiest());
         return v;
     }
 }

@@ -5,13 +5,17 @@
     android:padding="8dp"
     android:layout_height="wrap_content">
             <TextView
-                android:text="song Name"
+                android:textSize="20sp"
+                android:text="@string/songName"
+                android:textColor="@color/textColorPrimary"
                 android:id="@+id/txv_song_name"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/txv_song_artist"
-                android:text="song Name"
+                android:textSize="15sp"
+                android:textColor="@color/textColorSecondary"
+                android:text="@string/songArtiest"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 </LinearLayout>
