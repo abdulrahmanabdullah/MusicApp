@@ -1,9 +1,8 @@
 package abdulrahmanjavanrd.com.musicbook_demo2.utilities;
-
 /**
- * Created by nfs05 on 13/12/2017.
+ * @author  abdulrahman abdullah
+ * @since on 13/12/2017.
  */
-
 public class ConvertTime {
 
     public static String millisecond(long m){

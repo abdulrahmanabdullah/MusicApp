@@ -25,7 +25,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import abdulrahmanjavanrd.com.musicbook_demo2.R;
-import abdulrahmanjavanrd.com.musicbook_demo2.apaters.InternalMusicAdapter;
+import abdulrahmanjavanrd.com.musicbook_demo2.adapters.InternalMusicAdapter;
 import abdulrahmanjavanrd.com.musicbook_demo2.model.InternalMusic;
 import abdulrahmanjavanrd.com.musicbook_demo2.utilities.ConvertTime;
 
@@ -47,6 +47,16 @@ public class InternalMusicActivity extends AppCompatActivity {
     SeekBar seekBar ;
     ListView listView ;
     List<InternalMusic> musicList = new ArrayList<>();
+
+    /**
+     * On Complete Listener.
+     */
+    MediaPlayer.OnCompletionListener completionListener = new MediaPlayer.OnCompletionListener() {
+        @Override
+        public void onCompletion(MediaPlayer mp) {
+            releaseSong();
+        }
+    };
     @Override
     public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -195,7 +205,7 @@ public class InternalMusicActivity extends AppCompatActivity {
     }
 
     /**
-     * @param p current obj position
+     * @param p current InternalMusic object.
      * @return obj of InternalMusic
      */
     private InternalMusic getMusicList(int p){
@@ -216,6 +226,7 @@ public class InternalMusicActivity extends AppCompatActivity {
            seekBar.setMax(mPlayer.getDuration());
            playBtn.setBackgroundResource(R.drawable.ic_pause_white);
            currentSongName.setText(songName);
+           mPlayer.setOnCompletionListener(completionListener);
         }catch (IOException e){
             e.printStackTrace();
         }

@@ -1,4 +1,4 @@
-package abdulrahmanjavanrd.com.musicbook_demo2.apaters;
+package abdulrahmanjavanrd.com.musicbook_demo2.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;

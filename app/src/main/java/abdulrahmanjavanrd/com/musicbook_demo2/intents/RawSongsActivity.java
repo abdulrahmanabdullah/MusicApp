@@ -14,7 +14,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 import abdulrahmanjavanrd.com.musicbook_demo2.R;
-import abdulrahmanjavanrd.com.musicbook_demo2.apaters.RawAdapter;
+import abdulrahmanjavanrd.com.musicbook_demo2.adapters.RawAdapter;
 import abdulrahmanjavanrd.com.musicbook_demo2.model.RawMusic;
 import abdulrahmanjavanrd.com.musicbook_demo2.utilities.ConvertTime;
 
