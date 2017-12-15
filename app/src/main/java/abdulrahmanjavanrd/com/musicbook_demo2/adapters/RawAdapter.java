@@ -10,6 +10,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import abdulrahmanjavanrd.com.musicbook_demo2.R;
+import abdulrahmanjavanrd.com.musicbook_demo2.model.Music;
 import abdulrahmanjavanrd.com.musicbook_demo2.model.RawMusic;
 
 /**
@@ -18,9 +19,9 @@ import abdulrahmanjavanrd.com.musicbook_demo2.model.RawMusic;
 
 public class RawAdapter extends BaseAdapter {
   private   Context context ;
-   private List<RawMusic> listMusic ;
+   private List<Music> listMusic ;
 
-    public RawAdapter(Context ctx , List<RawMusic> theList){
+    public RawAdapter(Context ctx , List<Music> theList){
         this.context = ctx ;
         this.listMusic = theList ;
     }
@@ -30,7 +31,7 @@ public class RawAdapter extends BaseAdapter {
     }
 
     @Override
-    public RawMusic getItem(int position) {
+    public Music getItem(int position) {
         return listMusic.get(position);
     }
 
@@ -45,7 +46,7 @@ public class RawAdapter extends BaseAdapter {
         TextView songName = v.findViewById(R.id.txv_song_name);
         TextView songArtist = v.findViewById(R.id.txv_song_artist);
         songName.setText(getItem(position).getSongName());
-        songArtist.setText(getItem(position).getArtistName());
+        songArtist.setText(getItem(position).getSongArtiest());
         return v;
     }
 }

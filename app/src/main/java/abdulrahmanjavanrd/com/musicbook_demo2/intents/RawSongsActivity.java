@@ -8,13 +8,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.GridView;
+import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 import abdulrahmanjavanrd.com.musicbook_demo2.R;
 import abdulrahmanjavanrd.com.musicbook_demo2.adapters.RawAdapter;
+import abdulrahmanjavanrd.com.musicbook_demo2.model.Music;
 import abdulrahmanjavanrd.com.musicbook_demo2.model.RawMusic;
 import abdulrahmanjavanrd.com.musicbook_demo2.utilities.ConvertTime;
 
@@ -23,8 +24,8 @@ import abdulrahmanjavanrd.com.musicbook_demo2.utilities.ConvertTime;
  */
 
 public class RawSongsActivity extends AppCompatActivity {
-    List<RawMusic> listMusic;
-    GridView gridView;
+    List<Music> listMusic;
+     ListView listView;
     MediaPlayer mPlayer;
     int lengthCurrentSong;
     int currentSongIndex = 0;
@@ -49,7 +50,7 @@ public class RawSongsActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.seActivity_toolbar);
         txvCurrentSong = findViewById(R.id.txvCurrentSong);
         txvTime = findViewById(R.id.txvTime);
-        gridView = findViewById(R.id.grid_view);
+        listView = findViewById(R.id.list_view);
         rewindBtn = findViewById(R.id.btnRewind);
         playBtn = findViewById(R.id.btnPlay);
         forwardBtn = findViewById(R.id.btnForward);
@@ -64,13 +65,13 @@ public class RawSongsActivity extends AppCompatActivity {
          */
          songTrack myTrack = new songTrack();
         myTrack.start();
-        gridView.setAdapter(new RawAdapter(this, listMusic));
+        listView.setAdapter(new RawAdapter(this, listMusic));
         /**
          * GridView Listener .
          * When user click any song inside this list, it will  play automatically, Then Change Background button to
          *  pause icon.
          */
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 /** when click call {@link #playSong()}
@@ -161,12 +162,12 @@ public class RawSongsActivity extends AppCompatActivity {
      */
     private void setListMusic() {
         listMusic = new ArrayList<>();
-        listMusic.add(new RawMusic(R.raw.ibrahim_turkish, "Ibrahim Turkish", "turkish"));
-        listMusic.add(new RawMusic(R.raw.la_la_land, "La La Land", "Movie Music"));
-        listMusic.add(new RawMusic(R.raw.motivational, "Best Motivation", "Motivations"));
-        listMusic.add(new RawMusic(R.raw.need_you, "Need you", "Team"));
-        listMusic.add(new RawMusic(R.raw.strangers_in_the_night, "Strangers in the Night", "Frank"));
-        listMusic.add(new RawMusic(R.raw.sway, "Sway", "sway"));
+        listMusic.add(new Music(R.raw.ibrahim_turkish, "Ibrahim Turkish", "turkish"));
+        listMusic.add(new Music(R.raw.la_la_land, "La La Land", "Movie Music"));
+        listMusic.add(new Music(R.raw.motivational, "Best Motivation", "Motivations"));
+        listMusic.add(new Music(R.raw.need_you, "Need you", "Team"));
+        listMusic.add(new Music(R.raw.strangers_in_the_night, "Strangers in the Night", "Frank"));
+        listMusic.add(new Music(R.raw.sway, "Sway", "sway"));
     }
 
     /**
