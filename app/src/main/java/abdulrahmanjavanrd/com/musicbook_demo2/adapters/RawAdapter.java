@@ -6,15 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
 import java.util.List;
-
 import abdulrahmanjavanrd.com.musicbook_demo2.R;
 import abdulrahmanjavanrd.com.musicbook_demo2.model.Music;
-import abdulrahmanjavanrd.com.musicbook_demo2.model.RawMusic;
 
 /**
- * Created by nfs05 on 13/12/2017.
+ * Created by
+ * @author Abdulrahman.A
+ * @since on 13/12/2017.
  */
 
 public class RawAdapter extends BaseAdapter {

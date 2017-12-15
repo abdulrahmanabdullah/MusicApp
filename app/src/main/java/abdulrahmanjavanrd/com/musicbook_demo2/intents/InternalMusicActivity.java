@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 import abdulrahmanjavanrd.com.musicbook_demo2.R;
 import abdulrahmanjavanrd.com.musicbook_demo2.adapters.InternalMusicAdapter;
-import abdulrahmanjavanrd.com.musicbook_demo2.model.InternalMusic;
+import abdulrahmanjavanrd.com.musicbook_demo2.model.Music;
 import abdulrahmanjavanrd.com.musicbook_demo2.utilities.ConvertTime;
 
 /**
@@ -46,7 +46,7 @@ public class InternalMusicActivity extends AppCompatActivity {
     TextView currentSongName , songTimer ;
     SeekBar seekBar ;
     ListView listView ;
-    List<InternalMusic> musicList = new ArrayList<>();
+    List<Music> musicList = new ArrayList<>();
 
     /**
      * On Complete Listener.
@@ -189,7 +189,7 @@ public class InternalMusicActivity extends AppCompatActivity {
                 String songTitle = cursor.getString(titleColumn);
                 String songArtiest = cursor.getString(artiestColumn);
                 String songPath = cursor.getString(songData);
-                musicList.add(new InternalMusic(songID,songTitle,songArtiest,songPath));
+                musicList.add(new Music(songID,songTitle,songArtiest,songPath));
             }while (cursor.moveToNext());
         }
         InternalMusicAdapter adapter = new InternalMusicAdapter(InternalMusicActivity.this,musicList);
@@ -205,10 +205,10 @@ public class InternalMusicActivity extends AppCompatActivity {
     }
 
     /**
-     * @param p current InternalMusic object.
-     * @return obj of InternalMusic
+     * @param p position of object {@link Music}.
+     * @return  current obj of Music
      */
-    private InternalMusic getMusicList(int p){
+    private Music getMusicList(int p){
        return musicList.get(p);
    }
 

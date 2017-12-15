@@ -16,7 +16,6 @@ import java.util.List;
 import abdulrahmanjavanrd.com.musicbook_demo2.R;
 import abdulrahmanjavanrd.com.musicbook_demo2.adapters.RawAdapter;
 import abdulrahmanjavanrd.com.musicbook_demo2.model.Music;
-import abdulrahmanjavanrd.com.musicbook_demo2.model.RawMusic;
 import abdulrahmanjavanrd.com.musicbook_demo2.utilities.ConvertTime;
 
 /**
@@ -101,7 +100,6 @@ public class RawSongsActivity extends AppCompatActivity {
                     lengthCurrentSong = mPlayer.getCurrentPosition();
                     playBtn.setBackgroundResource(R.drawable.ic_play_white);
                 }
-//                //TODO: solve this debug , when song end .
                 else if (!(mPlayer.isPlaying())) {
                     mPlayer.seekTo(lengthCurrentSong);
                     mPlayer.start();
@@ -157,7 +155,7 @@ public class RawSongsActivity extends AppCompatActivity {
     }
 
     /**
-     * add songs method from  RawMusic.class then save it inside {@link #listMusic}
+     * add songs method from  Music.class then save it inside {@link #listMusic}
      * This list i passed in RawAdapter.class .
      */
     private void setListMusic() {

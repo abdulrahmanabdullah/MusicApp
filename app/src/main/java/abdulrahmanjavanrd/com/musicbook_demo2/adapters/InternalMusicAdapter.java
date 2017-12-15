@@ -6,18 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-
 import java.util.List;
-
 import abdulrahmanjavanrd.com.musicbook_demo2.R;
-import abdulrahmanjavanrd.com.musicbook_demo2.model.InternalMusic;
+import abdulrahmanjavanrd.com.musicbook_demo2.model.Music;
 
 public class InternalMusicAdapter extends BaseAdapter {
 
-    private List<InternalMusic> musicList;
+    private List<Music> musicList;
     private Context context;
 
-    public InternalMusicAdapter(Context context, List<InternalMusic> musicList) {
+    public InternalMusicAdapter(Context context, List<Music> musicList) {
         this.context = context;
         this.musicList = musicList;
     }
@@ -28,7 +26,7 @@ public class InternalMusicAdapter extends BaseAdapter {
     }
 
     @Override
-    public InternalMusic getItem(int position) {
+    public Music getItem(int position) {
         return musicList.get(position);
     }
 
