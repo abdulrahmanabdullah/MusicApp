@@ -76,6 +76,7 @@ public class RawSongsActivity extends AppCompatActivity {
                 /** when click call {@link #playSong()}
                  *  get audio and the name of this audio
                  * */
+                currentSongIndex = position;
                 playSong(listMusic.get(position).getId(), listMusic.get(position).getSongName());
             }
         });
@@ -202,7 +203,7 @@ public class RawSongsActivity extends AppCompatActivity {
     /**
      * Inner class for update seekBar and timer .
      * This class extends Thread Because i want run long process and avoid the ANR .
-     * In This class I call ConvertTime class to show the current song time .
+     * In This class I call {@link ConvertTime}class to show the current song time .
      */
     class songTrack extends Thread {
         @Override

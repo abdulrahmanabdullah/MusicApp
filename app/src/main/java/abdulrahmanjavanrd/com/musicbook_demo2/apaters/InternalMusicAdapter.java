@@ -12,16 +12,12 @@ import java.util.List;
 import abdulrahmanjavanrd.com.musicbook_demo2.R;
 import abdulrahmanjavanrd.com.musicbook_demo2.model.InternalMusic;
 
-/**
- * Created by nfs05 on 14/12/2017.
- */
-
 public class InternalMusicAdapter extends BaseAdapter {
 
-    private List<InternalMusic> musicList ;
-    private Context context ;
+    private List<InternalMusic> musicList;
+    private Context context;
 
-    public InternalMusicAdapter( Context context,List<InternalMusic> musicList) {
+    public InternalMusicAdapter(Context context, List<InternalMusic> musicList) {
         this.context = context;
         this.musicList = musicList;
     }
@@ -43,7 +39,7 @@ public class InternalMusicAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View v = LayoutInflater.from(context).inflate(R.layout.list_music,parent,false);
+        View v = LayoutInflater.from(context).inflate(R.layout.list_music, parent, false);
         System.out.println("Hi from get View . ");
         TextView songName = v.findViewById(R.id.txv_song_name);
         TextView songArtiest = v.findViewById(R.id.txv_song_artist);
