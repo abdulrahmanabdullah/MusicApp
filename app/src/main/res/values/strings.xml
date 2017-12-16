@@ -5,4 +5,5 @@
     <string name="withApp">Music With The App </string>
     <string name="songName">Song name</string>
     <string name="songArtiest">Song artiest</string>
+    <string name="MusicTypes">Music types</string>
 </resources>

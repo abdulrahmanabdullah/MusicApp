@@ -10,6 +10,12 @@ public class Music {
     private String songName ;
     private String songArtiest ;
     private String songPath;
+
+
+    public Music(int id , String typesMusic){
+        this.id = id ;
+        this.songName = typesMusic;
+    }
     /** Constructor for raw Music*/
     public Music(int id, String songName, String songArtiest) {
         this.id = id;
@@ -23,6 +29,9 @@ public class Music {
         this.songArtiest = songArtiest;
         this.songPath = songPath;
     }
+
+
+
 
     /** Getter */
     public int getId() {
