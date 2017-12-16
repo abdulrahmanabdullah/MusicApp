@@ -6,23 +6,23 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import abdulrahmanjavanrd.com.musicbook_demo2.activities.WorkoutMusicActivity;
 import abdulrahmanjavanrd.com.musicbook_demo2.adapters.TypesMusicAdapter;
-import abdulrahmanjavanrd.com.musicbook_demo2.intents.InternalMusicActivity;
-import abdulrahmanjavanrd.com.musicbook_demo2.intents.RawSongsActivity;
+import abdulrahmanjavanrd.com.musicbook_demo2.activities.InternalMusicActivity;
+import abdulrahmanjavanrd.com.musicbook_demo2.activities.ClassicalMusicActivity;
 import abdulrahmanjavanrd.com.musicbook_demo2.model.Music;
 
 public class MainActivity extends AppCompatActivity {
 
     Toolbar toolbar ;
-    ImageView imgInternal , imgRaw ;
     ListView listMusicTypes ;
     List<Music> musicList = new ArrayList<>();
+    Intent mIntent ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,13 +52,18 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position){
                     case 0 :
-                        Intent  mIntent = new Intent(MainActivity.this, RawSongsActivity.class);
+                         mIntent = new Intent(MainActivity.this, ClassicalMusicActivity.class);
                         startActivity(mIntent);
                     break;
+                    case 1 :
+                           mIntent = new Intent(MainActivity.this, WorkoutMusicActivity.class);
+                           startActivity(mIntent);
+                           break;
                     case 2 :
-                        Intent intent = new Intent(MainActivity.this, InternalMusicActivity.class);
-                        startActivity(intent);
+                        mIntent= new Intent(MainActivity.this, InternalMusicActivity.class);
+                        startActivity(mIntent);
                         break;
+
                 }
             }
         });

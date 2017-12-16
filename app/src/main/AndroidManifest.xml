@@ -16,10 +16,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".intents.RawSongsActivity" android:label="Some Music" android:parentActivityName=".MainActivity">
+        <activity android:name=".activities.ClassicalMusicActivity" android:label="Some Music" android:parentActivityName=".MainActivity">
             <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".MainActivity"/>
         </activity>
-        <activity android:name=".intents.InternalMusicActivity" android:parentActivityName=".MainActivity">
+        <activity android:name=".activities.InternalMusicActivity" android:parentActivityName=".MainActivity">
+            <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".MainActivity"/>
+        </activity>
+        <activity android:name=".activities.WorkoutMusicActivity" android:label="Workout music" android:parentActivityName=".MainActivity">
             <meta-data android:name="android.support.PARENT_ACTIVITY" android:value=".MainActivity"/>
         </activity>
     </application>
