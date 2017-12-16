@@ -1,24 +1,22 @@
 package abdulrahmanjavanrd.com.musicbook_demo2.utilities;
+
 /**
- * @author  abdulrahman abdullah
+ * @author abdulrahman abdullah
  * @since on 13/12/2017.
  */
 public class ConvertTime {
-
-    public static String millisecond(long m){
+    public static String millisecond(long m) {
         String totalTime = "";
-        String totalSecond = "";
-
+        String totalSecond;
         // covert minute and second
-        int minute = (int)(m %(1000*60*60))/(1000*60);
-        int second =  (int)(m %(1000*60*60))%(1000*60)/(1000);
-
-        if( second < 10){
-            totalSecond = "0"+ second ;
-        }else {
-            totalSecond = ""+second ;
+        int minute = (int) (m % (1000 * 60 * 60)) / (1000 * 60);
+        int second = (int) (m % (1000 * 60 * 60)) % (1000 * 60) / (1000);
+        if (second < 10) {
+            totalSecond = "0" + second;
+        } else {
+            totalSecond = "" + second;
         }
-        totalTime = totalTime + minute +":"+totalSecond ;
+        totalTime = totalTime + minute + ":" + totalSecond;
         return totalTime;
     }
 

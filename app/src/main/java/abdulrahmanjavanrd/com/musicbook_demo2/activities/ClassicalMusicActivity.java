@@ -11,8 +11,10 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import abdulrahmanjavanrd.com.musicbook_demo2.R;
 import abdulrahmanjavanrd.com.musicbook_demo2.adapters.RawAdapter;
 import abdulrahmanjavanrd.com.musicbook_demo2.model.Music;
@@ -23,28 +25,32 @@ import abdulrahmanjavanrd.com.musicbook_demo2.utilities.ConvertTime;
  */
 
 public class ClassicalMusicActivity extends AppCompatActivity {
-    List<Music> listMusic;
-     ListView listView;
-    MediaPlayer mPlayer;
-    int lengthCurrentSong;
-    int currentSongIndex = 0;
+    /**
+     * Views elements
+     */
     TextView txvCurrentSong, txvTime;
+    SeekBar seekBar;
+    Button playBtn, rewindBtn, forwardBtn;
+    Toolbar toolbar;
+    /**
+     * Global var
+     */
+    List<Music> listMusic;
+    ListView listView;
+    MediaPlayer mPlayer;
+    int lengthCurrentSong;// This var for save MediaPlayer getCurrentPosition TO pause music and resume.
+    int currentSongIndex = 0;
     MediaPlayer.OnCompletionListener completionListener = new MediaPlayer.OnCompletionListener() {
         @Override
         public void onCompletion(MediaPlayer mp) {
             releaseSong();
         }
     };
-    SeekBar seekBar;
-    Button playBtn, rewindBtn, forwardBtn;
-    Toolbar toolbar ;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_classical_music);
-        /** put data inside {@link #listMusic} */
-        setListMusic();
         /** init views  */
         toolbar = findViewById(R.id.seActivity_toolbar);
         txvCurrentSong = findViewById(R.id.txvCurrentSong);
@@ -55,25 +61,24 @@ public class ClassicalMusicActivity extends AppCompatActivity {
         forwardBtn = findViewById(R.id.btnForward);
         seekBar = findViewById(R.id.skBar);
         /**  toolbar */
-         setSupportActionBar(toolbar);
-         /** Back up button . */
-         ActionBar actionBar = getSupportActionBar();
-         actionBar.setDisplayHomeAsUpEnabled(true);
-        /**
-         * Create own thread .
-         */
-         songTrack myTrack = new songTrack();
+        setSupportActionBar(toolbar);
+        /** Back up button . */
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        /** Call Thread */
+        songTrack myTrack = new songTrack();
         myTrack.start();
-        listView.setAdapter(new RawAdapter(this, listMusic));
+        listView.setAdapter(new RawAdapter(this, getListMusic()));
         /**
-         * GridView Listener .
+         * ListView Listener .
          * When user click any song inside this list, it will  play automatically, Then Change Background button to
          *  pause icon.
          */
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                /** when click call {@link playSong()}
+                /** when click call
+                 *  {@link #playSong()}
                  *  get audio and the name of this audio
                  * */
                 currentSongIndex = position;
@@ -99,8 +104,7 @@ public class ClassicalMusicActivity extends AppCompatActivity {
                     mPlayer.pause();
                     lengthCurrentSong = mPlayer.getCurrentPosition();
                     playBtn.setBackgroundResource(R.drawable.ic_play_white);
-                }
-                else if (!(mPlayer.isPlaying())) {
+                } else if (!(mPlayer.isPlaying())) {
                     mPlayer.seekTo(lengthCurrentSong);
                     mPlayer.start();
                     seekBar.setMax(mPlayer.getDuration());
@@ -116,7 +120,7 @@ public class ClassicalMusicActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (currentSongIndex > 0) {
                     playSong(listMusic.get(currentSongIndex - 1).getId(), listMusic.get(currentSongIndex - 1).getSongName());
-                    currentSongIndex-- ;
+                    currentSongIndex--;
                 } else {
                     playSong(listMusic.get(currentSongIndex).getId(), listMusic.get(currentSongIndex).getSongName());
                     currentSongIndex = 0;
@@ -131,7 +135,7 @@ public class ClassicalMusicActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (currentSongIndex < (listMusic.size() - 1)) {
                     playSong(listMusic.get(currentSongIndex + 1).getId(), listMusic.get(currentSongIndex + 1).getSongName());
-                    currentSongIndex++ ;
+                    currentSongIndex++;
                 } else {
                     playSong(listMusic.get(0).getId(), listMusic.get(0).getSongName());
                     currentSongIndex = 0;
@@ -139,7 +143,6 @@ public class ClassicalMusicActivity extends AppCompatActivity {
             }
         });
     }
-
     /**
      * @param position of song id .
      * @param songName to set songName when play song OR move to next song OR back to the Previous song.
@@ -155,10 +158,11 @@ public class ClassicalMusicActivity extends AppCompatActivity {
     }
 
     /**
-     * add songs method from  Music.class then save it inside {@link #listMusic}
-     * This list i passed in RawAdapter.class .
+     * Add Data inside {@link #listMusic}
+     * This list i passed in {@link RawAdapter}.
+     * @return {@link Music} object .
      */
-    private void setListMusic() {
+    private List<Music> getListMusic() {
         listMusic = new ArrayList<>();
         listMusic.add(new Music(R.raw.ibrahim_turkish, "Ibrahim Turkish", "turkish"));
         listMusic.add(new Music(R.raw.la_la_land, "La La Land", "Movie Music"));
@@ -166,6 +170,7 @@ public class ClassicalMusicActivity extends AppCompatActivity {
         listMusic.add(new Music(R.raw.need_you, "Need you", "Team"));
         listMusic.add(new Music(R.raw.strangers_in_the_night, "Strangers in the Night", "Frank"));
         listMusic.add(new Music(R.raw.sway, "Sway", "sway"));
+        return listMusic;
     }
 
     /**

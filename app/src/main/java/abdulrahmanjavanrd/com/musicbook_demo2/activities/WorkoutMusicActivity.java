@@ -26,7 +26,6 @@ import abdulrahmanjavanrd.com.musicbook_demo2.utilities.ConvertTime;
  */
 
 public class WorkoutMusicActivity extends AppCompatActivity {
-
     /**  Views elements */
     Toolbar toolbar ;
     ListView listView ;
@@ -36,7 +35,7 @@ public class WorkoutMusicActivity extends AppCompatActivity {
     /** Global var*/
     List<Music> musicList;
     private int indexSong = 0;// Update this value when click any items in ListView
-    private int currentLengthSong ;
+    private int currentLengthSong ; // This var for save MediaPlayer getCurrentPosition TO pause music and resume.
     private MediaPlayer mPlayer ;
     private MediaPlayer.OnCompletionListener completionListener = new MediaPlayer.OnCompletionListener() {
         @Override
@@ -98,8 +97,8 @@ public class WorkoutMusicActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (indexSong > 0){
-                    playSong(getCurrentMusic(indexSong).getId(),getCurrentMusic(indexSong).getSongName());
                     indexSong-- ;
+                    playSong(getCurrentMusic(indexSong).getId(),getCurrentMusic(indexSong).getSongName());
                 }else{
                     playSong(getCurrentMusic(indexSong).getId(),getCurrentMusic(indexSong).getSongName());
                     indexSong = 0 ;
@@ -111,8 +110,8 @@ public class WorkoutMusicActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (indexSong < getMusicList().size()-1){
-                    playSong(getCurrentMusic(indexSong).getId(),getCurrentMusic(indexSong).getSongName());
                     indexSong++;
+                    playSong(getCurrentMusic(indexSong).getId(),getCurrentMusic(indexSong).getSongName());
                 }
                 else{
                     playSong(getCurrentMusic(indexSong).getId(),getCurrentMusic(indexSong).getSongName());
@@ -201,7 +200,7 @@ public class WorkoutMusicActivity extends AppCompatActivity {
     /**
      * Inner class for update seekBar and timer .
      * This class extends Thread Because i want run long process and avoid the ANR .
-     * In This class I call {@link ConvertTime}class to show the current song time .
+     * In This class I call {@link ConvertTime}class to convert MediaPlayer getCurrentPosition .
      */
     class SongTrack extends Thread {
         @Override
