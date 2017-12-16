@@ -1,5 +1,6 @@
 package abdulrahmanjavanrd.com.musicbook_demo2.activities;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import abdulrahmanjavanrd.com.musicbook_demo2.MainActivity;
 import abdulrahmanjavanrd.com.musicbook_demo2.R;
 import abdulrahmanjavanrd.com.musicbook_demo2.adapters.WorkoutAdapter;
 import abdulrahmanjavanrd.com.musicbook_demo2.model.Music;
@@ -31,7 +33,7 @@ public class WorkoutMusicActivity extends AppCompatActivity {
     ListView listView ;
     TextView currentSongName,songTime ;
     SeekBar seekBar ;
-    Button playBtn , forwardBtn , rewindBtn ;
+    Button playBtn , forwardBtn , rewindBtn,backBtn ;
     /** Global var*/
     List<Music> musicList;
     private int indexSong = 0;// Update this value when click any items in ListView
@@ -55,6 +57,7 @@ public class WorkoutMusicActivity extends AppCompatActivity {
         playBtn = findViewById(R.id.btnPlay);
         forwardBtn = findViewById(R.id.btnForward);
         rewindBtn = findViewById(R.id.btnRewind);
+        backBtn =findViewById(R.id.btnBack);
         seekBar = findViewById(R.id.skBar);
         /** ToolBar  */
         setSupportActionBar(toolbar);
@@ -117,6 +120,14 @@ public class WorkoutMusicActivity extends AppCompatActivity {
                     playSong(getCurrentMusic(indexSong).getId(),getCurrentMusic(indexSong).getSongName());
                     indexSong = 0 ;
                 }
+            }
+        });
+        /** Back to MainActivity*/
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mIntent = new Intent(WorkoutMusicActivity.this, MainActivity.class);
+                startActivity(mIntent);
             }
         });
     }

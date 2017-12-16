@@ -2,6 +2,7 @@ package abdulrahmanjavanrd.com.musicbook_demo2.activities;
 
 import android.Manifest;
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.media.MediaPlayer;
@@ -26,6 +27,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import abdulrahmanjavanrd.com.musicbook_demo2.MainActivity;
 import abdulrahmanjavanrd.com.musicbook_demo2.R;
 import abdulrahmanjavanrd.com.musicbook_demo2.adapters.InternalMusicAdapter;
 import abdulrahmanjavanrd.com.musicbook_demo2.model.Music;
@@ -51,7 +53,7 @@ public class InternalMusicActivity extends AppCompatActivity {
      */
     Toolbar toolbar;
     MediaPlayer mPlayer;
-    Button playBtn, forwardBtn, rewindBtn;
+    Button playBtn, forwardBtn, rewindBtn,backBtn;
     TextView currentSongName, songTimer;
     SeekBar seekBar;
     ListView listView;
@@ -77,6 +79,7 @@ public class InternalMusicActivity extends AppCompatActivity {
         playBtn = findViewById(R.id.btnPlay);
         forwardBtn = findViewById(R.id.btnForward);
         rewindBtn = findViewById(R.id.btnRewind);
+        backBtn = findViewById(R.id.btnBack);
         seekBar = findViewById(R.id.skBar);
         /** ToolBar layout*/
         setSupportActionBar(toolbar);
@@ -143,6 +146,14 @@ public class InternalMusicActivity extends AppCompatActivity {
                     playSong(getMusicList(indexSong).getSongPath(), getMusicList(indexSong).getSongName());
                     indexSong = 0;
                 }
+            }
+        });
+        /** Back to MainActivity*/
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mIntent = new Intent(InternalMusicActivity.this, MainActivity.class);
+                startActivity(mIntent);
             }
         });
     }

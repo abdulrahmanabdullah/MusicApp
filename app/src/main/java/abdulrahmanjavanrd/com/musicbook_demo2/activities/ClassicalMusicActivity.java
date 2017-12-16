@@ -1,5 +1,6 @@
 package abdulrahmanjavanrd.com.musicbook_demo2.activities;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import abdulrahmanjavanrd.com.musicbook_demo2.MainActivity;
 import abdulrahmanjavanrd.com.musicbook_demo2.R;
 import abdulrahmanjavanrd.com.musicbook_demo2.adapters.RawAdapter;
 import abdulrahmanjavanrd.com.musicbook_demo2.model.Music;
@@ -30,7 +32,7 @@ public class ClassicalMusicActivity extends AppCompatActivity {
      */
     TextView txvCurrentSong, txvTime;
     SeekBar seekBar;
-    Button playBtn, rewindBtn, forwardBtn;
+    Button playBtn, rewindBtn, forwardBtn,backBtn;
     Toolbar toolbar;
     /**
      * Global var
@@ -59,6 +61,7 @@ public class ClassicalMusicActivity extends AppCompatActivity {
         rewindBtn = findViewById(R.id.btnRewind);
         playBtn = findViewById(R.id.btnPlay);
         forwardBtn = findViewById(R.id.btnForward);
+        backBtn = findViewById(R.id.btnBack);
         seekBar = findViewById(R.id.skBar);
         /**  toolbar */
         setSupportActionBar(toolbar);
@@ -140,6 +143,14 @@ public class ClassicalMusicActivity extends AppCompatActivity {
                     playSong(listMusic.get(0).getId(), listMusic.get(0).getSongName());
                     currentSongIndex = 0;
                 }
+            }
+        });
+        /** Back to MainActivity*/
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent  mIntent = new Intent(ClassicalMusicActivity.this, MainActivity.class);
+                startActivity(mIntent);
             }
         });
     }
