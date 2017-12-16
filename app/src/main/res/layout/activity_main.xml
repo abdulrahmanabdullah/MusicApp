@@ -1,127 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/lightPrimaryColor"
     android:layout_height="match_parent"
+    android:background="@color/lightPrimaryColor"
     android:orientation="vertical"
     tools:context="abdulrahmanjavanrd.com.musicbook_demo2.MainActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/appBar_layout"
         android:layout_width="match_parent"
-        android:elevation="4dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:elevation="4dp">
+
         <android.support.v7.widget.Toolbar
             android:id="@+id/mainToolbar"
-            android:theme="@style/ToolBarTheme"
-            app:popupTheme="@style/popupTheme"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:theme="@style/ToolBarTheme"
+            app:popupTheme="@style/popupTheme" />
     </android.support.design.widget.AppBarLayout>
 
-
-    <!--<TextView-->
-        <!--android:layout_marginTop="24dp"-->
-        <!--android:textSize="25sp"-->
-        <!--android:layout_marginBottom="24dp"-->
-        <!--android:textColor="@color/textColorPrimary"-->
-        <!--android:textStyle="italic"-->
-        <!--android:layout_below="@id/appBar_layout"-->
-        <!--android:layout_centerInParent="true"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:id="@+id/txv"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="@string/choiceTypeListen"-->
-         <!--/>-->
-
-    <!--<LinearLayout-->
-        <!--android:id="@+id/linear"-->
-        <!--android:layout_marginStart="24dp"-->
-        <!--android:layout_marginTop="24dp"-->
-        <!--android:layout_marginEnd="24dp"-->
-        <!--android:layout_marginBottom="24dp"-->
-        <!--android:padding="8dp"-->
-        <!--android:layout_centerInParent="true"-->
-        <!--android:orientation="horizontal"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content">-->
-
-        <!--<RelativeLayout-->
-            <!--android:gravity="center"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_weight="1"-->
-            <!--android:layout_height="wrap_content">-->
-
-            <!--<ImageView-->
-                <!--android:clickable="true"-->
-                <!--android:id="@+id/imgInternal"-->
-                <!--android:src="@drawable/ic_internal_3"-->
-                <!--android:scaleType="fitCenter"-->
-                <!--android:layout_width="150dp"-->
-                <!--android:layout_height="150dp" />-->
-
-            <!--<TextView-->
-                <!--android:gravity="center_horizontal"-->
-                <!--android:textStyle="italic"-->
-                <!--android:textSize="20sp"-->
-                <!--android:layout_alignEnd="@id/imgInternal"-->
-                <!--android:layout_alignStart="@id/imgInternal"-->
-                <!--android:layout_alignBottom="@id/imgInternal"-->
-                <!--android:textColor="@color/textColorPrimary"-->
-                <!--android:text="@string/internalMusic"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content" />-->
-        <!--</RelativeLayout>-->
-
-        <!--<View-->
-            <!--android:layout_weight="0"-->
-            <!--android:layout_marginStart="24dp"-->
-            <!--android:layout_gravity="center_horizontal"-->
-            <!--android:layout_marginEnd="24dp"-->
-            <!--android:background="@color/dividerColor"-->
-            <!--android:layout_width="2dp"-->
-            <!--android:layout_height="match_parent"-->
-            <!--/>-->
-
-        <!--<RelativeLayout-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:gravity="center"-->
-            <!--android:layout_weight="1"-->
-            <!--android:layout_height="wrap_content">-->
-
-            <!--<ImageView-->
-                <!--android:id="@+id/imgRaw"-->
-                <!--android:src="@drawable/ic_internal_1"-->
-                <!--android:layout_width="150dp"-->
-                <!--android:layout_height="150dp" />-->
-
-            <!--<TextView-->
-                <!--android:textSize="20sp"-->
-                <!--android:layout_marginTop="8dp"-->
-                <!--android:textStyle="italic"-->
-                <!--android:gravity="center"-->
-                <!--android:textColor="@color/textColorPrimary"-->
-                <!--android:paddingTop="8dp"-->
-                <!--android:layout_alignEnd="@id/imgRaw"-->
-                <!--android:layout_alignStart="@id/imgRaw"-->
-                <!--android:layout_alignBottom="@id/imgRaw"-->
-               <!--android:text="@string/withApp"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content" />-->
-        <!--</RelativeLayout>-->
-
-    <!--</LinearLayout>-->
     <LinearLayout
-        android:orientation="vertical"
-        android:padding="16dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
         <ListView
             android:id="@+id/list_music_types"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </LinearLayout>

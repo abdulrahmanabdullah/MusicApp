@@ -6,24 +6,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
 import java.util.List;
+
 import abdulrahmanjavanrd.com.musicbook_demo2.R;
 import abdulrahmanjavanrd.com.musicbook_demo2.model.Music;
 
 /**
  * Created by
+ *
  * @author Abdulrahman.A
  * @since on 13/12/2017.
  */
-
 public class RawAdapter extends BaseAdapter {
-  private   Context context ;
-   private List<Music> listMusic ;
+    private Context context;
+    private List<Music> listMusic;
 
-    public RawAdapter(Context ctx , List<Music> theList){
-        this.context = ctx ;
-        this.listMusic = theList ;
+    public RawAdapter(Context ctx, List<Music> theList) {
+        this.context = ctx;
+        this.listMusic = theList;
     }
+
     @Override
     public int getCount() {
         return listMusic.size();
@@ -41,7 +44,7 @@ public class RawAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View v = LayoutInflater.from(context).inflate(R.layout.list_music,parent,false);
+        View v = LayoutInflater.from(context).inflate(R.layout.list_music, parent, false);
         TextView songName = v.findViewById(R.id.txv_song_name);
         TextView songArtist = v.findViewById(R.id.txv_song_artist);
         songName.setText(getItem(position).getSongName());

@@ -34,8 +34,9 @@ public class WorkoutMusicActivity extends AppCompatActivity {
     SeekBar seekBar ;
     Button playBtn , forwardBtn , rewindBtn ;
     /** Global var*/
-    List<Music> musicList = new ArrayList<>();
+    List<Music> musicList;
     private int indexSong = 0;// Update this value when click any items in ListView
+    private int currentLengthSong ;
     private MediaPlayer mPlayer ;
     private MediaPlayer.OnCompletionListener completionListener = new MediaPlayer.OnCompletionListener() {
         @Override
@@ -62,20 +63,33 @@ public class WorkoutMusicActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         createAdapter();
         /** Start Thread */
-        SongTrack myTrack = new SongTrack();
+        final SongTrack myTrack = new SongTrack();
         myTrack.start();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 indexSong = position;
-                playSong(getMusicList(position).getId(),getMusicList(position).getSongName());
+                playSong(getCurrentMusic(position).getId(),getCurrentMusic(position).getSongName());
             }
         });
-       /** Button for play music*/
+       /** Button for play music, And pause music*/
         playBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (mPlayer == null){
+                    playSong(getCurrentMusic(indexSong).getId(),getCurrentMusic(indexSong).getSongName());
+                }
+               else if( mPlayer != null && mPlayer.isPlaying()){
+                   currentLengthSong = mPlayer.getCurrentPosition();
+                   mPlayer.pause();
+                   seekBar.setMax(mPlayer.getDuration());
+                   playBtn.setBackgroundResource(R.drawable.ic_play_white);
+                }
+                else if (!(mPlayer.isPlaying())){
+                  mPlayer.seekTo(currentLengthSong);
+                  mPlayer.start();
+                 playBtn.setBackgroundResource(R.drawable.ic_pause_white);
+                }
             }
         });
 
@@ -83,62 +97,65 @@ public class WorkoutMusicActivity extends AppCompatActivity {
         rewindBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (indexSong > 0){
+                    playSong(getCurrentMusic(indexSong).getId(),getCurrentMusic(indexSong).getSongName());
+                    indexSong-- ;
+                }else{
+                    playSong(getCurrentMusic(indexSong).getId(),getCurrentMusic(indexSong).getSongName());
+                    indexSong = 0 ;
+                }
             }
         });
         /** Button forward music */
         forwardBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (indexSong < getMusicList().size()-1){
+                    playSong(getCurrentMusic(indexSong).getId(),getCurrentMusic(indexSong).getSongName());
+                    indexSong++;
+                }
+                else{
+                    playSong(getCurrentMusic(indexSong).getId(),getCurrentMusic(indexSong).getSongName());
+                    indexSong = 0 ;
+                }
             }
         });
     }
 
     /**
-     * This method for call {@link #setMusicList()} And
+     * This method  call {@link #getMusicList()} And
      *   Create new object of {@link WorkoutAdapter} class Then pass
-     *    {@link #musicList}.
+     *    {@link #getMusicList()}.
      */
     private void createAdapter(){
-        setMusicList();
-        WorkoutAdapter adapter = new WorkoutAdapter(this,musicList);
+        WorkoutAdapter adapter = new WorkoutAdapter(this,getMusicList());
         listView.setAdapter(adapter);
     }
 
     /**
-     * Add music to the {@link #musicList}
+     * @return  {@link #musicList} After insert data .
      */
-    private void setMusicList(){
-        Music m1 = new Music(R.raw.cant_stop,"Can't stop","TheStarFactory");
-        Music m2 = new Music(R.raw.bootie_hips,"Boot Hips","TheStarFactory");
-        Music m3 = new Music(R.raw.dont_let_me_down,"Don't Let ME Down","TheStarFactory");
-        Music m4 = new Music(R.raw.i_dont_like_it,"I Don't Like it","TheStarFactory");
-        Music m5 = new Music(R.raw.lean_on,"Lean on","TheStarFactory");
-        Music m6 = new Music(R.raw.let_me_love_you,"Let Me love you","TheStarFactory");
-        Music m7 = new Music(R.raw.light_me_up,"Light me up","TheStarFactory");
-        Music m11 = new Music(R.raw.no_excuses,"No Excuses","TheStarFactory");
-        Music m8 = new Music(R.raw.music_2_workout,"Music 1 ","TheStarFactory");
-        Music m9 = new Music(R.raw.music_3_workout,"Music 2","TheStarFactory");
-        Music m10 = new Music(R.raw.music_4_workout,"Music 3","TheStarFactory");
-        musicList.add(m1);
-        musicList.add(m2);
-        musicList.add(m3);
-        musicList.add(m4);
-        musicList.add(m5);
-        musicList.add(m6);
-        musicList.add(m7);
-        musicList.add(m8);
-        musicList.add(m9);
-        musicList.add(m10);
-        musicList.add(m11);
+    private List<Music> getMusicList(){
+        musicList = new ArrayList<>();
+        musicList.add(new Music(R.raw.cant_stop,"Can't stop","TheStarFactory"));
+        musicList.add(new Music(R.raw.bootie_hips,"Boot Hips","TheStarFactory"));
+        musicList.add(new Music(R.raw.dont_let_me_down,"Don't Let ME Down","TheStarFactory"));
+        musicList.add(new Music(R.raw.i_dont_like_it,"I Don't Like it","TheStarFactory"));
+        musicList.add(new Music(R.raw.lean_on,"Lean on","TheStarFactory"));
+        musicList.add(new Music(R.raw.let_me_love_you,"Let Me love you","TheStarFactory"));
+        musicList.add(new Music(R.raw.light_me_up,"Light me up","TheStarFactory"));
+        musicList.add(new Music(R.raw.no_excuses,"No Excuses","TheStarFactory"));
+        musicList.add(new Music(R.raw.music_2_workout,"Music 1 ","TheStarFactory"));
+        musicList.add(new Music(R.raw.music_3_workout,"Music 2","TheStarFactory"));
+        musicList.add(new Music(R.raw.music_4_workout,"Music 3","TheStarFactory"));
+        return musicList;
     }
 
     /**
      * @param p position of obj.
      * @return obj of {@link Music} class
      */
-    private Music getMusicList(int p){
+    private Music getCurrentMusic(int p){
         return musicList.get(p);
     }
 
