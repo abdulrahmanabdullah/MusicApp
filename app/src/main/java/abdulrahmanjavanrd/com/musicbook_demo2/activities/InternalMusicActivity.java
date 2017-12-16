@@ -177,7 +177,6 @@ public class InternalMusicActivity extends AppCompatActivity {
                     extractMedia();
                 } else {
                     Toast.makeText(InternalMusicActivity.this, "Sorry you should accept to access storage device", Toast.LENGTH_LONG).show();
-                    this.finish();
                 }
                 break;
             default:
